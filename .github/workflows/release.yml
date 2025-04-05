@@ -1,0 +1,36 @@
+name: Version and Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    name: Bump Version & Create Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install `semver`
+        run: npm install -g semver
+
+      - name: Grant Execute Permission to Script
+        run: chmod +x scripts/bump-version.sh
+
+      - name: Run Versioning Script
+        run: ./scripts/bump-version.sh patch
+
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: "v$(git tag --sort=-v:refname | head -n 1)"
+          generate_release_notes: true
