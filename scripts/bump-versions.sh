@@ -32,7 +32,7 @@ echo "🚀 Created tag v$NEW_VERSION"
 
 # Create and push the tag
 git tag "v$NEW_VERSION"
-git push origin main --tags  # Ensure all tags are pushed
+git push origin master --tags  # Ensure all tags are pushed
 
 # Output the new version
 echo "✅ Bumped version to v$NEW_VERSION"
