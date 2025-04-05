@@ -8,7 +8,7 @@ set -x
 git fetch --tags
 
 # Get the latest tag, fallback to "v0.0.0" if no tags exist
-LATEST_TAG=$(git tag --sort=-v:refname | head -n 1)
+LATEST_TAG=$(git tag --sort=-v:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -n 1)
 LATEST_TAG=${LATEST_TAG:-"v0.0.0"}
 
 # Remove 'v' prefix
