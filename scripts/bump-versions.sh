@@ -26,6 +26,8 @@ if git rev-parse "v$NEW_VERSION" >/dev/null 2>&1; then
     exit 0
 fi
 
+#0.0.6
+
 # Update version file
 echo "v$NEW_VERSION" > VERSION
 
