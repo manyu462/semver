@@ -22,6 +22,9 @@ jobs:
       - name: Install `semver`
         run: npm install -g semver
 
+      - name: Verify Script Exists
+        run: ls -l scripts/
+
       - name: Grant Execute Permission to Script
         run: chmod +x scripts/bump-version.sh
 
