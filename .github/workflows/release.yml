@@ -18,7 +18,7 @@ jobs:
 
 
       - name: Verify Script Exists After Checkout
-        run: ls -lah scripts/ && file scripts/bump-version.sh
+        run: ls -lah scripts/ && file scripts/bump-versions.sh
 
 
       - name: Setup Node.js
@@ -33,11 +33,11 @@ jobs:
         run: ls -l scripts/
 
       - name: Grant Execute Permission to Script
-        run: chmod +x scripts/bump-version.sh
+        run: chmod +x scripts/bump-versions.sh
 
       - name: Run Versioning Script
         id: bump
-        run: echo "NEW_VERSION=$(./scripts/bump-version.sh patch)" >> $GITHUB_ENV
+        run: echo "NEW_VERSION=$(./scripts/bump-versions.sh patch)" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
