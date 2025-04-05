@@ -34,6 +34,7 @@ echo "🚀 Created tag v$NEW_VERSION"
 git tag "v$NEW_VERSION"
 git push origin master --tags  # Ensure all tags are pushed
 
+echo "🚀 Pushed tag v$NEW_VERSION to remote"
 # Output the new version
 echo "✅ Bumped version to v$NEW_VERSION"
 
