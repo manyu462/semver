@@ -25,6 +25,12 @@ jobs:
         run: ls -lah scripts/ && file scripts/bump-versions.sh
 
 
+      - name: Setup Git Identity
+        run: |
+          git config --local user.email "github-actions@github.com"
+          git config --local user.name "GitHub Actions"
+
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
