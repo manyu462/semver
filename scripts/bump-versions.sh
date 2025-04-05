@@ -12,6 +12,7 @@ LATEST_TAG=${LATEST_TAG:-"v0.0.0"}
 
 # Remove 'v' prefix
 VERSION=${LATEST_TAG#v}
+echo "Current version: $VERSION"
 
 # Determine next version type (default: patch)
 BUMP_TYPE=${1:-patch}
@@ -19,7 +20,14 @@ BUMP_TYPE=${1:-patch}
 # Increment version
 NEW_VERSION=$(npx semver "$VERSION" -i "$BUMP_TYPE")
 
+# Check if the tag already exists
+if git rev-parse "v$NEW_VERSION" >/dev/null 2>&1; then
+    echo "Tag v$NEW_VERSION already exists. Skipping tagging."
+    echo "v$NEW_VERSION"
+    exit 0
+fi
 
+#0.0.6
 
 # Update version file
 echo "v$NEW_VERSION" > VERSION
