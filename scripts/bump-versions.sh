@@ -24,9 +24,9 @@ echo "$NEW_VERSION" > VERSION
 
 # Commit changes
 echo "🚀 Creating new version v$NEW_VERSION from $LATEST_TAG"
-git add VERSION
-echo "🚀 Bumping version to v$NEW_VERSION"
-git commit -m "Bumped version to v$NEW_VERSION"
+# git add VERSION
+# echo "🚀 Bumping version to v$NEW_VERSION"
+# git commit -m "Bumped version to v$NEW_VERSION"
 
 echo "🚀 Created tag v$NEW_VERSION"
 
