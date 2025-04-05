@@ -1,26 +1,35 @@
 #!/bin/bash
 
-# Ensure script stops on error
+# Stop on error
 set -e
 
-# Get latest tag, default to 0.0.0 if no tags exist
-LATEST_TAG=$(git tag --sort=-v:refname | head -n 1)
+# Ensure we are on the latest version of the repo
+git fetch --tags
+
+# Get the latest tag, fallback to "v0.0.0" if no tags exist
+LATEST_TAG=$(git tag --sort=-v:refname | tail -n 1)
 LATEST_TAG=${LATEST_TAG:-"v0.0.0"}
 
-# Remove 'v' prefix for version comparison
+# Remove 'v' prefix for versioning
 VERSION=${LATEST_TAG#v}
 
-# Determine next version type (default: patch)
+# Determine bump type (default: patch)
 BUMP_TYPE=${1:-patch}
 
-# Increment version using semver
+# Generate new version using semver
 NEW_VERSION=$(npx semver "$VERSION" -i "$BUMP_TYPE")
 
-# Create and push the new tag
-# git config --global user.name "github-actions[bot]"
-# git config --global user.email "github-actions[bot]@users.noreply.github.com"
+# Ensure VERSION file exists
+echo "$NEW_VERSION" > VERSION
+
+# Commit changes
+echo "🚀 Creating new version v$NEW_VERSION from $LATEST_TAG"
+git add VERSION
+git commit -m "Bumped version to v$NEW_VERSION"
+
+# Create and push the tag
 git tag "v$NEW_VERSION"
-git push origin "v$NEW_VERSION"
+git push origin main --tags  # Ensure all tags are pushed
 
 # Output the new version
-echo "Bumped version to v$NEW_VERSION"
+echo "✅ Bumped version to v$NEW_VERSION"
