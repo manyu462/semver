@@ -22,18 +22,15 @@ jobs:
       - name: Install `semver`
         run: npm install -g semver
 
-      - name: Verify Script Exists
-        run: ls -l scripts/
-
       - name: Grant Execute Permission to Script
         run: chmod +x scripts/bump-version.sh
 
       - name: Run Versioning Script
-        run: ./scripts/bump-version.sh patch
-
+        id: bump
+        run: echo "NEW_VERSION=$(./scripts/bump-version.sh patch)" >> $GITHUB_ENV
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: "v$(git tag --sort=-v:refname | head -n 1)"
+          tag_name: "v${{ env.NEW_VERSION }}"
           generate_release_notes: true
