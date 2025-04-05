@@ -2,6 +2,7 @@
 
 # Stop on error
 set -e
+set -x
 
 # Ensure we are on the latest version of the repo
 git fetch --tags
