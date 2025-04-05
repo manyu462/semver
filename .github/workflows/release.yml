@@ -5,10 +5,14 @@ on:
     branches:
       - master
 
+permissions:
+  contents: write
+
 jobs:
   release:
     name: Bump Version & Create Release
     runs-on: ubuntu-latest
+    
 
     steps:
       - name: Checkout Repository
