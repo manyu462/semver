@@ -10,34 +10,25 @@ git fetch --tags
 LATEST_TAG=$(git tag --sort=-v:refname | tail -n 1)
 LATEST_TAG=${LATEST_TAG:-"v0.0.0"}
 
-# Remove 'v' prefix for versioning
+# Remove 'v' prefix for version comparison
 VERSION=${LATEST_TAG#v}
 
-# Determine bump type (default: patch)
+# Determine next version type (default: patch)
 BUMP_TYPE=${1:-patch}
 
-# Generate new version using semver
+# Increment version using semver
 NEW_VERSION=$(npx semver "$VERSION" -i "$BUMP_TYPE")
 
-# Ensure VERSION file exists
-echo "$NEW_VERSION" > VERSION
+# Update the version file
+echo "v$NEW_VERSION" > VERSION
 
-# Commit changes
-echo "🚀 Creating new version v$NEW_VERSION from $LATEST_TAG"
-# git add VERSION
-# git commit -m "Bumped version to v$NEW_VERSION"
+# Commit the changes
+git add VERSION
+git commit -m "Bumped version to v$NEW_VERSION"
 
-echo "🚀 Created tag v$NEW_VERSION"
-
-# Create and push the tag
+# Create and push the new tag
 git tag "v$NEW_VERSION"
-# echo "🚀 Bumping version to v$NEW_VERSION"
-git push origin master --tags  # Ensure all tags are pushed
+git push origin "v$NEW_VERSION"
 
-echo "🚀 Pushed tag v$NEW_VERSION to remote"
-# Output the new version
-echo "✅ Bumped version to v$NEW_VERSION"
-
+# Output ONLY the new version (without extra text)
 echo "v$NEW_VERSION"
-
-
