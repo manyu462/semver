@@ -38,3 +38,5 @@ git push origin master --tags  # Ensure all tags are pushed
 echo "✅ Bumped version to v$NEW_VERSION"
 
 echo "v$NEW_VERSION"
+
+
